@@ -5,7 +5,7 @@ Description=Grow Light Automation
 Type=simple
 Restart=always
 RestartSec=30
-ExecStart=/home/pi/.yarn/bin/growhaus
+ExecStart=/home/pi/.yarn/bin/firefly
 
 [Install]
 WantedBy=multi-user.target
