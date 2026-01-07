@@ -1,6 +1,6 @@
 import mockdate from 'mockdate'
 
-import { LightSchedule, schedule as singletonSchedule } from './schedule'
+import { LightSchedule, schedule as singletonSchedule } from '../src/schedule'
 
 let scheduleInstance: LightSchedule | null = null
 

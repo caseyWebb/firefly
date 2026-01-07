@@ -15,5 +15,5 @@
     "experimentalDecorators": true,
     "isolatedModules": true
   },
-  "exclude": ["dist", "**/*.test.ts"]
+  "exclude": ["dist", "test"]
 }

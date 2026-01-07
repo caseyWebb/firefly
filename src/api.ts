@@ -10,7 +10,7 @@ interface BrightnessRequest {
   duration?: string
 }
 
-const app = new Koa()
+export const app = new Koa()
 
 app.use(koaBody())
 

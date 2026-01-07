@@ -5,7 +5,7 @@ import { log } from './logger'
 
 export const DRIVER_PWM_PIN: LedOption = 'GPIO18'
 
-class LedDriver {
+export class LedDriver {
   private readonly ready: Promise<void>
 
   private led!: Led
