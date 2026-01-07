@@ -2,7 +2,6 @@ jest.mock('johnny-five')
 jest.mock('pi-io')
 
 import request from 'supertest'
-import mockdate from 'mockdate'
 import { app } from '../src/api'
 import { driver } from '../src/driver'
 import { LightSchedule, schedule as singletonSchedule } from '../src/schedule'
@@ -13,13 +12,14 @@ describe('Integration Tests', () => {
 
   beforeEach(async () => {
     clearMockLed()
-    mockdate.set(new Date(2024, 0, 1, 12, 0)) // Noon - full brightness
 
     // Wait for board ready (setImmediate in mock)
     await new Promise((resolve) => setImmediate(resolve))
 
     // Enable fake timers (excluding setImmediate to allow promises to resolve)
+    // Set system time to noon - full brightness period
     jest.useFakeTimers({ doNotFake: ['setImmediate'] })
+    jest.setSystemTime(new Date(2024, 0, 1, 12, 0))
   })
 
   afterEach(() => {
@@ -27,7 +27,6 @@ describe('Integration Tests', () => {
     schedule = null
     jest.clearAllTimers()
     jest.useRealTimers()
-    mockdate.reset()
   })
 
   afterAll(() => {
@@ -129,19 +128,19 @@ describe('Integration Tests', () => {
 
     test('schedule calculates correct brightness at different times', () => {
       // Test at 7am - should be 0 (start of ramp up)
-      mockdate.set(new Date(2024, 0, 1, 7, 0))
+      jest.setSystemTime(new Date(2024, 0, 1, 7, 0))
       let testSchedule = new LightSchedule()
       expect(testSchedule.current).toBe(0)
       testSchedule.stop()
 
       // Test at 11am - should be 255 (peak)
-      mockdate.set(new Date(2024, 0, 1, 11, 0))
+      jest.setSystemTime(new Date(2024, 0, 1, 11, 0))
       testSchedule = new LightSchedule()
       expect(testSchedule.current).toBe(255)
       testSchedule.stop()
 
       // Test at 9pm - should be 0 (night)
-      mockdate.set(new Date(2024, 0, 1, 21, 0))
+      jest.setSystemTime(new Date(2024, 0, 1, 21, 0))
       testSchedule = new LightSchedule()
       expect(testSchedule.current).toBe(0)
       testSchedule.stop()
@@ -250,14 +249,14 @@ describe('Integration Tests', () => {
 
   describe('Time-based brightness scenarios', () => {
     test('brightness is 0 before 7am', () => {
-      mockdate.set(new Date(2024, 0, 1, 6, 0))
+      jest.setSystemTime(new Date(2024, 0, 1, 6, 0))
       const testSchedule = new LightSchedule()
       expect(testSchedule.current).toBe(0)
       testSchedule.stop()
     })
 
     test('brightness ramps from 7am to 11am', () => {
-      mockdate.set(new Date(2024, 0, 1, 9, 0)) // 9am - midpoint
+      jest.setSystemTime(new Date(2024, 0, 1, 9, 0)) // 9am - midpoint
       const testSchedule = new LightSchedule()
       expect(testSchedule.current).toBeGreaterThan(0)
       expect(testSchedule.current).toBeLessThan(255)
@@ -265,14 +264,14 @@ describe('Integration Tests', () => {
     })
 
     test('brightness is 255 from 11am to 5pm', () => {
-      mockdate.set(new Date(2024, 0, 1, 14, 0)) // 2pm
+      jest.setSystemTime(new Date(2024, 0, 1, 14, 0)) // 2pm
       const testSchedule = new LightSchedule()
       expect(testSchedule.current).toBe(255)
       testSchedule.stop()
     })
 
     test('brightness ramps down from 5pm to 9pm', () => {
-      mockdate.set(new Date(2024, 0, 1, 19, 0)) // 7pm - midpoint
+      jest.setSystemTime(new Date(2024, 0, 1, 19, 0)) // 7pm - midpoint
       const testSchedule = new LightSchedule()
       expect(testSchedule.current).toBeGreaterThan(0)
       expect(testSchedule.current).toBeLessThan(255)
@@ -280,7 +279,7 @@ describe('Integration Tests', () => {
     })
 
     test('brightness is 0 after 9pm', () => {
-      mockdate.set(new Date(2024, 0, 1, 22, 0)) // 10pm
+      jest.setSystemTime(new Date(2024, 0, 1, 22, 0)) // 10pm
       const testSchedule = new LightSchedule()
       expect(testSchedule.current).toBe(0)
       testSchedule.stop()

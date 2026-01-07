@@ -1,5 +1,3 @@
-import mockdate from 'mockdate'
-
 import { LightSchedule, schedule as singletonSchedule } from '../src/schedule'
 
 let scheduleInstance: LightSchedule | null = null
@@ -13,7 +11,6 @@ afterEach(() => {
   scheduleInstance = null
   jest.clearAllTimers()
   jest.useRealTimers()
-  mockdate.reset()
 })
 
 afterAll(() => {
@@ -31,19 +28,19 @@ testTime(20, 59, 1)
 testTime(21, 0, 0)
 
 test('updates automatically', () => {
-  mockdate.set(new Date(1, 1, 1, 7, 0))
+  jest.setSystemTime(new Date(1, 1, 1, 7, 0))
   scheduleInstance = new LightSchedule()
 
   expect(scheduleInstance.current).toBe(0)
 
-  mockdate.set(new Date(1, 1, 1, 7, 3))
+  jest.setSystemTime(new Date(1, 1, 1, 7, 3))
   jest.advanceTimersToNextTimer()
 
   expect(scheduleInstance.current).toBeGreaterThan(0)
 })
 
 test('calls subscribers on update', (done) => {
-  mockdate.set(new Date(1, 1, 1, 7, 0))
+  jest.setSystemTime(new Date(1, 1, 1, 7, 0))
   scheduleInstance = new LightSchedule()
 
   expect(scheduleInstance.current).toBe(0)
@@ -53,13 +50,13 @@ test('calls subscribers on update', (done) => {
     done()
   })
 
-  mockdate.set(new Date(1, 1, 1, 7, 3))
+  jest.setSystemTime(new Date(1, 1, 1, 7, 3))
   jest.advanceTimersToNextTimer()
 })
 
 function testTime(hour: number, minute: number, expected: number): void {
   test(`is ${String(expected)} @ ${String(hour)}:${minute.toString().padStart(2, '0')}`, () => {
-    mockdate.set(new Date(1, 1, 1, hour, minute))
+    jest.setSystemTime(new Date(1, 1, 1, hour, minute))
     scheduleInstance = new LightSchedule()
     expect(scheduleInstance.current).toBe(expected)
   })
