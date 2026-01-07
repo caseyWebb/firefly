@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/caseyWebb/firefly/compare/v1.4.0...v1.4.1) (2026-01-07)
+
+
+### Miscellaneous Chores
+
+* force release ([c5ab284](https://github.com/caseyWebb/firefly/commit/c5ab284128961f5b5c578a4673c493cb3ced60fa))
+
 ## [1.4.0](https://github.com/caseyWebb/firefly/compare/v1.3.1...v1.4.0) (2026-01-07)
 
 
