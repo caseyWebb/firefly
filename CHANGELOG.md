@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.8](https://github.com/caseyWebb/firefly/compare/v1.4.7...v1.4.8) (2026-01-07)
+
+
+### Bug Fixes
+
+* add repository.url for npm provenance verification ([99f55f3](https://github.com/caseyWebb/firefly/commit/99f55f3f587137eeb411d13bce90249dc05b1df2))
+
 ## [1.4.7](https://github.com/caseyWebb/firefly/compare/v1.4.6...v1.4.7) (2026-01-07)
 
 
