@@ -19,14 +19,11 @@ jobs:
       - uses: actions/setup-node@v4
         if: ${{ steps.release.outputs.release_created }}
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
-          registry-url: https://registry.npmjs.org
       - run: npm ci
         if: ${{ steps.release.outputs.release_created }}
       - run: npm run build
         if: ${{ steps.release.outputs.release_created }}
-      - run: |
-          npm config delete //registry.npmjs.org/:_authToken || true
-          npm publish --access public --provenance
+      - run: npm publish --provenance --access public
         if: ${{ steps.release.outputs.release_created }}
