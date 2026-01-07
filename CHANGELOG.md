@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/caseyWebb/firefly/compare/v1.4.2...v1.4.3) (2026-01-07)
+
+
+### Bug Fixes
+
+* add --provenance flag for npm trusted publishing ([eb8f416](https://github.com/caseyWebb/firefly/commit/eb8f4160c9e8b815732bf82a2c69f68078708e51))
+
 ## [1.4.2](https://github.com/caseyWebb/firefly/compare/v1.4.1...v1.4.2) (2026-01-07)
 
 
