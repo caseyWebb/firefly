@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.6](https://github.com/caseyWebb/firefly/compare/v1.4.5...v1.4.6) (2026-01-07)
+
+
+### Bug Fixes
+
+* remove npm auth token config to force OIDC ([b811b35](https://github.com/caseyWebb/firefly/commit/b811b35a7cd41034a017fedeb4028ca4cb62269a))
+
 ## [1.4.5](https://github.com/caseyWebb/firefly/compare/v1.4.4...v1.4.5) (2026-01-07)
 
 
