@@ -9,26 +9,27 @@ Requires a Mean Well LED driver with 3-in-1 dimming (PWM/0-10V/resistance). Thes
 ## Installation
 
 ```bash
-yarn global add @caseywebb/firefly
+npm install -g @caseywebb/firefly
 sudo firefly
 ```
 
-Optionally copy the systemd unit file to `/etc/systemd/system/firefly.service` and run:
+To run as a systemd service:
 
 ```bash
-sudo systemctl start firefly && sudo systemctl enable firefly
+firefly --install-service
+sudo systemctl enable --now firefly
 ```
 
 ## Schedule
 
 Brightness follows a daily schedule based on local time:
 
-| Time | Brightness |
-|------|------------|
-| 9pm - 7am | Off (0) |
-| 7am - 11am | Gradual ramp up (0 → 255) |
-| 11am - 5pm | Full brightness (255) |
-| 5pm - 9pm | Gradual ramp down (255 → 0) |
+| Time       | Brightness                  |
+| ---------- | --------------------------- |
+| 9pm - 7am  | Off (0)                     |
+| 7am - 11am | Gradual ramp up (0 → 255)   |
+| 11am - 5pm | Full brightness (255)       |
+| 5pm - 9pm  | Gradual ramp down (255 → 0) |
 
 The schedule updates every minute.
 

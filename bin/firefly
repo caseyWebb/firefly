@@ -1,3 +1,47 @@
 #!/usr/bin/env node
 
+if (process.argv.includes('--install-service')) {
+  const fs = require('fs')
+  const path = require('path')
+  const { execSync } = require('child_process')
+
+  let fireflyPath = process.argv[1]
+  if (!path.isAbsolute(fireflyPath)) {
+    // Just a command name (no slashes) - look it up in PATH
+    if (!fireflyPath.includes(path.sep)) {
+      fireflyPath = execSync(`which ${fireflyPath}`, {
+        encoding: 'utf8',
+      }).trim()
+    } else {
+      // Relative path - resolve from cwd
+      fireflyPath = path.resolve(fireflyPath)
+    }
+  }
+  fireflyPath = fs.realpathSync(fireflyPath)
+  const serviceContent = `[Unit]
+Description=Grow Light Automation
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=30
+ExecStart=${fireflyPath}
+
+[Install]
+WantedBy=multi-user.target
+`
+
+  const tmpFile = '/tmp/firefly.service'
+  fs.writeFileSync(tmpFile, serviceContent)
+  execSync('sudo cp /tmp/firefly.service /etc/systemd/system/firefly.service', {
+    stdio: 'inherit',
+  })
+  execSync('sudo systemctl daemon-reload', { stdio: 'inherit' })
+  fs.unlinkSync(tmpFile)
+
+  console.log('Service installed to /etc/systemd/system/firefly.service')
+  console.log('Run: sudo systemctl enable --now firefly')
+  process.exit(0)
+}
+
 require('../dist')
