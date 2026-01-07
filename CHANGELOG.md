@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/caseyWebb/firefly/compare/v1.3.1...v1.4.0) (2026-01-07)
+
+
+### Features
+
+* add --install-service flag and remove yarn ([8562263](https://github.com/caseyWebb/firefly/commit/8562263f7c3fbfabf380013ac355273e6161a5b4))
+
+
+### Bug Fixes
+
+* systemd unit WantedBy=multi-user.target ([2314219](https://github.com/caseyWebb/firefly/commit/231421949a10321c2263e4b9d271d54eafe2061c))
+* **test:** replace mockdate with jest.setSystemTime ([b49447b](https://github.com/caseyWebb/firefly/commit/b49447bc1ef7eb6a7c5ec57210a6f3d312f9bfc2))
+* use schedule singleton ([56e9910](https://github.com/caseyWebb/firefly/commit/56e9910c4535faf0d9f0afc9d6e1d8a0c4c11880))
+
 ### [1.3.2](https://github.com/caseyWebb/firefly/compare/v1.3.1...v1.3.2) (2020-05-08)
 
 
