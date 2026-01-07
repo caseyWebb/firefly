@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.4](https://github.com/caseyWebb/firefly/compare/v1.4.3...v1.4.4) (2026-01-07)
+
+
+### Bug Fixes
+
+* remove registry-url to allow npm OIDC auth ([ad2f4c1](https://github.com/caseyWebb/firefly/commit/ad2f4c10a68714a63a3413c394af95428027f11c))
+
 ## [1.4.3](https://github.com/caseyWebb/firefly/compare/v1.4.2...v1.4.3) (2026-01-07)
 
 

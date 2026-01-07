@@ -1,6 +1,6 @@
 {
   "name": "@caseywebb/firefly",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "license": "MIT",
   "bin": "./bin/firefly",
   "files": [
