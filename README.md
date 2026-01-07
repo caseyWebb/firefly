@@ -19,9 +19,22 @@ Optionally copy the systemd unit file to `/etc/systemd/system/firefly.service` a
 sudo systemctl start firefly && sudo systemctl enable firefly
 ```
 
+## Schedule
+
+Brightness follows a daily schedule based on local time:
+
+| Time | Brightness |
+|------|------------|
+| 9pm - 7am | Off (0) |
+| 7am - 11am | Gradual ramp up (0 → 255) |
+| 11am - 5pm | Full brightness (255) |
+| 5pm - 9pm | Gradual ramp down (255 → 0) |
+
+The schedule updates every minute.
+
 ## API
 
-A minimal webserver is exposed for retrieving and temporarily overriding the brightness.
+A minimal webserver is exposed for retrieving and temporarily overriding the brightness. Overrides pause the schedule for the specified duration (default 15 minutes), after which the schedule resumes.
 
 ### Get
 
@@ -32,7 +45,7 @@ curl localhost:8080
 ### Set
 
 ```bash
-curl --data '{ "brightness": <1-255> }' -H "Content-Type: application/json" -X POST localhost:8080
+curl --data '{ "brightness": <0-255>, "duration": <minutes> }' -H "Content-Type: application/json" -X POST localhost:8080
 ```
 
 ## License
