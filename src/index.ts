@@ -3,7 +3,7 @@ import { driver } from './driver'
 import { log } from './logger'
 import { schedule } from './schedule'
 
-log(`Starting agent...`)
+log('Starting agent...')
 
 let forceQuit = false
 const quit = (): void => {
@@ -13,15 +13,21 @@ const quit = (): void => {
     forceQuit = true
   }
   log('Exiting... (Press ctrl+c again to force exit)')
-  driver.setBrightness(100)
+  driver.setBrightness(100).catch((err: unknown) => {
+    log('Error setting brightness on exit:', err)
+  })
   process.off('SIGINT', quit)
 }
 process.on('SIGINT', quit)
 
 startAPIServer()
 
-driver.setBrightness(schedule.current)
+driver.setBrightness(schedule.current).catch((err: unknown) => {
+  log('Error setting initial brightness:', err)
+})
 
 schedule.subscribe((v) => {
-  driver.setBrightness(v)
+  driver.setBrightness(v).catch((err: unknown) => {
+    log('Error setting brightness:', err)
+  })
 })

@@ -21,6 +21,8 @@ export abstract class Subscribable {
   }
 
   protected next(): void {
-    this.subscriptions.forEach((s) => s(this))
+    this.subscriptions.forEach((s) => {
+      s(this)
+    })
   }
 }

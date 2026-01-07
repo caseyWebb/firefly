@@ -1,15 +1,20 @@
 import Koa from 'koa'
-import bodyParser from 'koa-body'
+import koaBody from 'koa-body'
 
 import { driver } from './driver'
 import { log } from './logger'
 import { schedule } from './schedule'
 
+interface BrightnessRequest {
+  brightness: string
+  duration?: string
+}
+
 const app = new Koa()
 
-app.use(bodyParser())
+app.use(koaBody())
 
-app.use((ctx) => {
+app.use(async (ctx) => {
   switch (ctx.method.toUpperCase()) {
     case 'GET':
       ctx.status = 200
@@ -20,20 +25,21 @@ app.use((ctx) => {
     case 'POST':
       {
         try {
-          const value = parseInt(ctx.request.body.brightness)
+          const body = ctx.request.body as BrightnessRequest | undefined
+          const value = parseInt(body?.brightness ?? '')
           if (isNaN(value) || value < 0 || value > 255) {
             throw new Error()
           } else {
-            let duration = parseInt(ctx.request.body.duration)
+            let duration = parseInt(body?.duration ?? '')
             if (isNaN(duration)) duration = 15
             ctx.status = 200
-            driver.setBrightness(value)
+            await driver.setBrightness(value)
             schedule.pause(duration)
           }
-        } catch (e) {
+        } catch {
           ctx.status = 400
           ctx.message = `Invalid request body. Expected object { "brightness": 0-255, "duration": 15 }, received ${JSON.stringify(
-            ctx.request.body
+            ctx.request.body,
           )}`
         }
       }

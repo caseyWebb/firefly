@@ -11,7 +11,8 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "typeRoots": ["@types", "node_modules/@types"],
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "isolatedModules": true
   },
   "exclude": ["dist", "**/*.test.ts"]
 }

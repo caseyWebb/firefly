@@ -21,7 +21,7 @@ class LedDriver {
         io,
       })
       board.on('ready', () => {
-        this.led = new Led((DRIVER_PWM_PIN as unknown) as number)
+        this.led = new Led(DRIVER_PWM_PIN as unknown as number)
         log('GPIO initialized.')
         resolve()
       })
@@ -35,7 +35,7 @@ class LedDriver {
   public async setBrightness(intensity: number): Promise<void> {
     await this.ready
     intensity = Math.min(Math.max(intensity, 26), 255) // Meanwell drivers not intended to be dimmed below 10%
-    log(`Setting brightness to ${intensity}`)
+    log(`Setting brightness to ${String(intensity)}`)
     this.led.on()
     this.led.brightness(255 - intensity)
     this.brightness = intensity
