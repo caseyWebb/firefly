@@ -1,5 +1,9 @@
 # firefly
 
+[![npm version](https://img.shields.io/npm/v/@caseywebb/firefly)](https://www.npmjs.com/package/@caseywebb/firefly)
+[![CI](https://github.com/caseyWebb/firefly/actions/workflows/ci.yml/badge.svg)](https://github.com/caseyWebb/firefly/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/caseyWebb/firefly/branch/main/graph/badge.svg)](https://codecov.io/gh/caseyWebb/firefly)
+
 > Networked Raspberry Pi-based light controller for Mean Well LED drivers.
 
 ## Hardware
